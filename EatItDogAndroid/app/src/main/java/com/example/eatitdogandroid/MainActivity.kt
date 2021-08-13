@@ -1,14 +1,18 @@
 package com.example.eatitdogandroid
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toolbar
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_search.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         //레이아웃과 연결
         setContentView(R.layout.activity_main)
+
 
         Log.d(TAG, "MainActivity - onCreate() called")
 
