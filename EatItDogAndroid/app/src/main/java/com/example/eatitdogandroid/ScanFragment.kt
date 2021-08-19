@@ -7,8 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.journeyapps.barcodescanner.CaptureManager
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
+import kotlinx.android.synthetic.main.fragment_scan.*
 
 class ScanFragment : Fragment() {
+    lateinit var capture:CaptureManager
+    lateinit var barcodeScannerView: DecoratedBarcodeView
+
+
+
     companion object{
         const val TAG : String = "로그"
 
@@ -21,6 +29,10 @@ class ScanFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "ScanFragment - onCreate() called")
+
+        barcodeScannerView = dbvBarcode
+
+        capture = CaptureManager(this, barcodeScannerView)
     }
 
     //프레그먼트를 안고 있는 액티비티에 붙었을 때

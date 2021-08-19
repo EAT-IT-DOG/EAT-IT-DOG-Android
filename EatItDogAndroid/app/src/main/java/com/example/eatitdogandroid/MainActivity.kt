@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     //
     private lateinit var scanFragment:ScanFragment
     private lateinit var searchFragment:SearchFragment
-    private lateinit var hospitalFragment: HospitalFragment
+    private lateinit var mapsFragment: MapsFragment
 
     companion object{
 
@@ -57,8 +57,8 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.item_hospital ->{
                 Log.d(TAG, "MainActivity - 병원버튼!")
-                hospitalFragment = HospitalFragment.newInstance()
-                supportFragmentManager.beginTransaction().replace(R.id.main_frame, hospitalFragment).commit()
+                mapsFragment = MapsFragment.newInstance()
+                supportFragmentManager.beginTransaction().replace(R.id.main_frame, mapsFragment).commit()
             }
         }
 
