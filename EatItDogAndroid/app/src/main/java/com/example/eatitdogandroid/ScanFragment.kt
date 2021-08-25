@@ -1,5 +1,6 @@
 package com.example.eatitdogandroid
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -7,16 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.zxing.client.android.Intents
+import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import kotlinx.android.synthetic.main.fragment_scan.*
 
 class ScanFragment : Fragment() {
-    lateinit var capture:CaptureManager
-    lateinit var barcodeScannerView: DecoratedBarcodeView
-
-
-
     companion object{
         const val TAG : String = "로그"
 
@@ -29,16 +27,16 @@ class ScanFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "ScanFragment - onCreate() called")
-
-        barcodeScannerView = dbvBarcode
-
-        capture = CaptureManager(this, barcodeScannerView)
     }
 
     //프레그먼트를 안고 있는 액티비티에 붙었을 때
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Log.d(TAG, "ScanFragment - onAttach() called")
+
+
+
+
     }
 
     //뷰가 생성 되었을 때
@@ -50,6 +48,7 @@ class ScanFragment : Fragment() {
 
         return view
     }
+
 
 
 }
