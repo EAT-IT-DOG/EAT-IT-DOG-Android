@@ -19,6 +19,7 @@ import android.widget.Toast
 import android.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
@@ -31,6 +32,59 @@ class MainActivity : AppCompatActivity() {
     private lateinit var scanFragment:ScanFragment
     private lateinit var searchFragment:SearchFragment
     private lateinit var mapsFragment: MapsFragment
+
+    var locationManager : LocationManager? = null
+    private val REQUEST_CODE_LOCATION : Int = 2
+    var currentLocation : String = ""
+    var latitude : Double? = null
+    var longitude : Double? = null
+
+    private fun getCurrentLoc() {
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
+        var userLocation : Location = getLatLng()
+        if(userLocation != null){
+            latitude = userLocation.latitude
+            longitude = userLocation.longitude
+            Log.d("CheckCurrentLocation", "현재 내 위치 값 : $latitude, $longitude")
+
+            var mGeocoder = Geocoder(applicationContext, Locale.KOREAN)
+            var mResultList : List<Address>? = null
+            try{
+                mResultList = mGeocoder.getFromLocation(
+                    latitude!!, longitude!!, 1
+                )
+            } catch (e: IOException){
+                e.printStackTrace()
+            }
+            if(mResultList != null){
+                Log.d("CheckCurrentLocation", mResultList[0].getAddressLine(0))
+                currentLocation = mResultList[0].getAddressLine(0)
+                currentLocation = currentLocation.substring(11)
+            }
+        }
+    }
+
+    private fun getLatLng() : Location{
+        var currentLatLng : Location? = null
+        if (ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                this.REQUEST_CODE_LOCATION
+            )
+            getLatLng()
+        } else {
+            val locationProvider = LocationManager.GPS_PROVIDER
+            currentLatLng = locationManager?.getLastKnownLocation(locationProvider)
+        }
+        return currentLatLng!!
+    }
+
+
+
+
+
+
 
 
     companion object{
@@ -72,6 +126,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "MainActivity - 병원버튼!")
                 mapsFragment = MapsFragment.newInstance()
                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, mapsFragment).commit()
+                getCurrentLoc()
             }
         }
 
@@ -97,7 +152,7 @@ class MainActivity : AppCompatActivity() {
     }*/
     fun startBarcodeReader(view: View){
         val integrator = IntentIntegrator(this)
-        integrator.setPrompt("바코드를 스캔하여 주세요");
+        integrator.setPrompt("음식의 바코드에 카메라를 비춰주세요");
         integrator.setBeepEnabled(false)
         integrator.setOrientationLocked(false)
         integrator.initiateScan()
