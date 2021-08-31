@@ -9,9 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 
 class HospitalFragment : Fragment() {
-    companion object{
+    companion object {
         const val TAG : String = "로그"
-
         fun newInstance() : HospitalFragment {
             return HospitalFragment()
         }
@@ -33,11 +32,8 @@ class HospitalFragment : Fragment() {
     //프레그먼트와 레이아웃을 연결시켜주는 부분이다.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG, "HospitalFragment - onCreateView() called")
-
         val view = inflater.inflate(R.layout.fragment_hospital, container, false)
-
         return view
     }
-
 
 }
