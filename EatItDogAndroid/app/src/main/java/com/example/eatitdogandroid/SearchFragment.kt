@@ -3,6 +3,8 @@ package com.example.eatitdogandroid
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_ENTER
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +17,22 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val suggestions = arrayOf("apple", "banana", "grape", "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10")
+        val suggestions = arrayOf("초콜릿", "닭발", "블루베리") //자동완성 되는 검색어들
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, suggestions)
         autoCompleteTextView.setDropDownBackgroundResource(R.color.gray)
         autoCompleteTextView.setAdapter(adapter)
 
+
+        Search_View.setOnClickListener{
+            (activity as MainActivity).Search()
+        }
+        autoCompleteTextView.setOnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
+                (activity as MainActivity).Search()
+                (activity as MainActivity).CloseKeyboard()
+            }
+            true
+        }
     }
 
     companion object {
@@ -41,7 +54,6 @@ class SearchFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Log.d(TAG, "SearchFragment - onAttach() called")
-
     }
 
     //뷰가 생성 되었을 때

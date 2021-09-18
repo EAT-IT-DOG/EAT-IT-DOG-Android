@@ -12,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.fragment_maps.*
 
 class MapsFragment : Fragment() {
 
@@ -31,9 +32,35 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val makerOptions = MarkerOptions()
+        makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
+            .position(LatLng(MyLocation.latitude!!, MyLocation.longitude!!))
+            .title("TEST") // 타이틀.
+
+        // 2. 마커 생성 (마커를 나타냄)
+        googleMap.addMarker(makerOptions)
+
+        val makerOptions1 = MarkerOptions()
+        makerOptions1 // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
+            .position(LatLng(35.65839845196616, 128.41294259098387))
+            .title("초록 동물병원") // 타이틀.
+            .snippet("053-638-1558")
+
+        // 2. 마커 생성 (마커를 나타냄)
+        googleMap.addMarker(makerOptions1).showInfoWindow()
+
+        val makerOptions2 = MarkerOptions()
+        makerOptions2 // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
+            .position(LatLng(35.65618989500108, 128.4188453166363))
+            .title("동물병원 2") // 타이틀.
+
+        // 2. 마커 생성 (마커를 나타냄)
+        googleMap.addMarker(makerOptions2)
+
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(MyLocation.latitude, MyLocation.longitude), 15.0F))
+//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
     override fun onCreateView(
@@ -48,5 +75,8 @@ class MapsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+
+        val adapter = RecyclerViewAdapter()
+        recyclerView.adapter = adapter
     }
 }

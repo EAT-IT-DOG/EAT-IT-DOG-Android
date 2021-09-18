@@ -10,6 +10,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTextView"
+        android:singleLine="true"
         android:layout_width="300dp"
         android:layout_height="45dp"
         android:layout_marginTop="40dp"
@@ -35,6 +36,15 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/Search_View"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/serch"
+        app:layout_constraintBottom_toBottomOf="@+id/autoCompleteTextView"
+        app:layout_constraintEnd_toEndOf="@+id/autoCompleteTextView"
+        app:layout_constraintTop_toTopOf="@+id/autoCompleteTextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
