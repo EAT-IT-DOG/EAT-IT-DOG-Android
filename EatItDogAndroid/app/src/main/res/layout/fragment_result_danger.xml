@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/danger_Fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ResultFragment_danger">
@@ -16,7 +17,7 @@
         android:textColor="#FF0000"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/danger_symptom" />
 
     <TextView
         android:id="@+id/textView5"
@@ -28,15 +29,15 @@
         android:textColor="#000000"
         android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@+id/imageView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/danger_edible" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/danger_symptom"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="구토, 탈수, 복통, 장파열, 불안, 근육경련, 발열, 발작, 심하면 죽음에 이르기까지 합니다."
+        android:text=""
         android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@+id/imageView10"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -52,11 +53,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/danger_foodname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="초콜릿"
+        android:text=""
         android:textColor="#000000"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +72,7 @@
         android:src="@drawable/spectrum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/danger_foodname" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -115,13 +116,13 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/danger_edible"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:textColor="#000000"
-        android:text="먹으면 위험합니다. 만약 반려견이 섭취하였다면 신속히 병원 의료진과 상담하시고, 대처하시기 바랍니다."
+        android:text=""
         app:layout_constraintStart_toEndOf="@+id/imageView7"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -133,7 +134,7 @@
         android:layout_marginTop="30dp"
         android:src="@drawable/symptom"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/danger_edible" />
 
     <ImageView
         android:id="@+id/imageView11"
@@ -143,6 +144,6 @@
         android:layout_marginTop="30dp"
         android:src="@drawable/danger_hospital"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/danger_symptom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

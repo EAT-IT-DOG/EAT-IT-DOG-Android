@@ -13,12 +13,5 @@
         android:text="스캔"
         android:onClick="startBarcodeReader"/>
 
-    <TextView
-        android:id="@+id/TEXTVIEW"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="test"
-        android:textSize="50dp"/>
-
 
 </LinearLayout>
