@@ -7,8 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import com.google.zxing.Result
+import kotlinx.android.synthetic.main.fragment_scan.view.*
+import kotlinx.android.synthetic.main.fragment_search.*
+import me.dm7.barcodescanner.zxing.ZXingScannerView
 
-class ScanFragment : Fragment() {
+class ScanFragment : Fragment(), ZXingScannerView.ResultHandler {
     companion object {
         const val TAG : String = "로그"
         fun newInstance() : ScanFragment {
@@ -28,11 +34,49 @@ class ScanFragment : Fragment() {
         Log.d(TAG, "ScanFragment - onAttach() called")
     }
 
+    private lateinit var mview : View
+
+    private lateinit var scannerView : ZXingScannerView
     //뷰가 생성 되었을 때
     //프레그먼트와 레이아웃을 연결시켜주는 부분이다.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG, "ScanFragment - onCreateView() called")
-        val view = inflater.inflate(R.layout.fragment_scan, container, false)
-        return view
+        mview = inflater.inflate(R.layout.fragment_scan, container, false)
+        intializeQrScanner()
+        return mview.rootView
+    }
+
+    private fun intializeQrScanner() {
+        scannerView = ZXingScannerView(context)
+        scannerView.setAutoFocus(true)
+        scannerView.setResultHandler(this)
+        mview.containerScanner.addView(scannerView)
+        startQRCamera()
+    }
+
+    private fun startQRCamera() {
+        scannerView.startCamera()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        scannerView.setResultHandler(this)
+        scannerView.startCamera()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        scannerView.stopCamera()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scannerView.stopCamera()
+    }
+
+    override fun handleResult(rawResult: Result?) {
+        var barcodenum = rawResult?.text
+        (activity as MainActivity).Scanserver(barcodenum!!.toLong())
+        //Toast.makeText(context, rawResult?.text, Toast.LENGTH_LONG).show()
     }
 }

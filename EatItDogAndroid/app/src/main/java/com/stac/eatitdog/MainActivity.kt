@@ -10,15 +10,21 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
+import com.journeyapps.barcodescanner.CaptureManager
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import com.stac.eatitdog.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_result_danger.*
+import kotlinx.android.synthetic.main.fragment_scan.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -68,13 +74,30 @@ class MainActivity : AppCompatActivity() {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
                             foodinfo.symptom = repo.food.symptom.toString()
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_danger.newInstance()).commit()
+                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, danger.newInstance()).commit()
+                            Handler().postDelayed({
+                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_danger.newInstance()).commit()
+                            }, 3000)
                         }
                         "양호" -> {
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_soso.newInstance()).commit()
+                            foodinfo.foodname = repo.food.foodName
+                            foodinfo.edible = repo.food.edible
+                            foodinfo.feed = repo.food.feedMethod.toString()
+                            foodinfo.symptom = repo.food.symptom.toString()
+                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, soso.newInstance()).commit()
+                            Handler().postDelayed({
+                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_soso.newInstance()).commit()
+                            }, 3000)
                         }
                         "안전" -> {
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_safe.newInstance()).commit()
+                            foodinfo.foodname = repo.food.foodName
+                            foodinfo.edible = repo.food.edible
+                            foodinfo.feed = repo.food.feedMethod.toString()
+                            foodinfo.ingredient = repo.food.ingredient.toString()
+                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, safe.newInstance()).commit()
+                            Handler().postDelayed({
+                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_safe.newInstance()).commit()
+                            }, 3000)
                         }
                         else -> {
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_null.newInstance()).commit()
@@ -114,21 +137,30 @@ class MainActivity : AppCompatActivity() {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
                             foodinfo.symptom = repo.food.symptom.toString()
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_danger.newInstance()).commit()
+                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, danger.newInstance()).commit()
+                            Handler().postDelayed({
+                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_danger.newInstance()).commit()
+                            }, 3000)
                         }
                         "양호" -> {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
                             foodinfo.feed = repo.food.feedMethod.toString()
                             foodinfo.symptom = repo.food.symptom.toString()
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_soso.newInstance()).commit()
+                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, soso.newInstance()).commit()
+                            Handler().postDelayed({
+                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_soso.newInstance()).commit()
+                            }, 3000)
                         }
                         "안전" -> {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
                             foodinfo.feed = repo.food.feedMethod.toString()
                             foodinfo.ingredient = repo.food.ingredient.toString()
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_safe.newInstance()).commit()
+                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, safe.newInstance()).commit()
+                            Handler().postDelayed({
+                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_safe.newInstance()).commit()
+                            }, 3000)
                         }
                         else -> {
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_null.newInstance()).commit()
@@ -263,7 +295,9 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }*/
-    fun startBarcodeReader(view: View) {
+
+
+    /*fun startBarcodeReader(view: View) {
         val integrator = IntentIntegrator(this)
         integrator.setPrompt("음식의 바코드에 카메라를 비춰달라멍")
         integrator.setBeepEnabled(false)
@@ -282,6 +316,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }
+    }*/
+
+
 }
 

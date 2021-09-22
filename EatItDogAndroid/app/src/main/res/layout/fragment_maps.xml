@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".MapsFragment">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
