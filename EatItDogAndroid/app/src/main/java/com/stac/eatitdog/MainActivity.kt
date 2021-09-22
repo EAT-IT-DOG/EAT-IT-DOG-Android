@@ -8,6 +8,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -17,6 +18,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.CaptureManager
@@ -39,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchFragment: SearchFragment
     private lateinit var mapsFragment: MapsFragment
 
+    private val REQUEST_PERMISSION_LOCATION = 10
+
     private var mBinding: ActivityMainBinding? = null
     private val binding get() = mBinding!!
 
@@ -47,6 +51,70 @@ class MainActivity : AppCompatActivity() {
     var currentLocation: String = ""
     var latitude: Double? = null
     var longitude: Double? = null
+
+    val CAMERA_PERMISSION = arrayOf(Manifest.permission.CAMERA)
+    val FLAG_PERM_CAMERA = 98
+
+    fun checkPermission() {
+
+        // 1. 위험권한(Camera) 권한 승인상태 가져오기
+        val cameraPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+        if (cameraPermission == PackageManager.PERMISSION_GRANTED) {
+            // 카메라 권한이 승인된 상태일 경우
+        } else {
+            // 카메라 권한이 승인되지 않았을 경우
+            requestPermission()
+        }
+    }
+
+    // 2. 권한 요청
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 99)
+    }
+
+
+    fun checkPermissionForLocation(context: Context): Boolean {
+        Log.d(TAG, "checkPermissionForLocation()")
+        // Android 6.0 Marshmallow 이상에서는 지리 확보(위치) 권한에 추가 런타임 권한이 필요합니다.
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                Log.d(TAG, "checkPermissionForLocation() 권한 상태 : O")
+                true
+            } else {
+                // 권한이 없으므로 권한 요청 알림 보내기
+                Log.d(TAG, "checkPermissionForLocation() 권한 상태 : X")
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_PERMISSION_LOCATION)
+                false
+            }
+        } else {
+            true
+        }
+    }
+
+    // 사용자에게 권한 요청 후 결과에 대한 처리 로직
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.d(TAG, "onRequestPermissionsResult()")
+        if (requestCode == REQUEST_PERMISSION_LOCATION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d(TAG, "onRequestPermissionsResult() _ 권한 허용 클릭")
+
+            } else {
+                Log.d(TAG, "onRequestPermissionsResult() _ 권한 허용 거부")
+                Toast.makeText(this , "권한이 없어 GPS 기능을 실행할 수 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     fun Scanserver(barcodenum: Long) {
         val builder: Retrofit.Builder = Retrofit.Builder()
@@ -239,10 +307,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        checkPermission()
+
+        checkPermissionForLocation(this)
+
         mBinding = ActivityMainBinding.inflate(layoutInflater)
 
         //레이아웃과 연결
         setContentView(binding.root)
+
 
         d1(TAG, "MainActivity - onCreate() called")
 
@@ -297,7 +370,7 @@ class MainActivity : AppCompatActivity() {
     }*/
 
 
-    /*fun startBarcodeReader(view: View) {
+    fun startBarcodeReader(view: View) {
         val integrator = IntentIntegrator(this)
         integrator.setPrompt("음식의 바코드에 카메라를 비춰달라멍")
         integrator.setBeepEnabled(false)
@@ -316,7 +389,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }*/
+    }
 
 
 }
