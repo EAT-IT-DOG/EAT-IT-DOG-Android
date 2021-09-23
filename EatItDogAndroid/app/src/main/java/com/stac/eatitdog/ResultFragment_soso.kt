@@ -43,7 +43,7 @@ class ResultFragment_soso : Fragment() {
         binding.sosoFoodname.text = foodinfo.foodname
         binding.sosoEdible.text = foodinfo.edible
         binding.sosoFeed.text = foodinfo.feed
-        binding.sosoSymptom.text = foodinfo.ingredient
+        binding.sosoSymptom.text = foodinfo.symptom
 
         return binding.root
     }

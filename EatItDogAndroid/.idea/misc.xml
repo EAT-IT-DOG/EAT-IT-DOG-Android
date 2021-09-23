@@ -7,6 +7,7 @@
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/drawable/danger_hospital.xml" value="0.3296296296296296" />
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/drawable/ic_baseline_gps_fixed_24.xml" value="0.153125" />
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/drawable/ic_launcher_background.xml" value="0.153125" />
+        <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/font/defalutfont.xml" value="0.25" />
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/danger.xml" value="0.22" />
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_danger.xml" value="0.3359375" />
@@ -17,8 +18,9 @@
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_result_null.xml" value="0.33" />
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_result_safe.xml" value="0.3359375" />
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_result_soso.xml" value="0.3359375" />
-        <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_scan.xml" value="0.25" />
-        <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_search.xml" value="0.17864583333333334" />
+        <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_safe.xml" value="0.24139492753623187" />
+        <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_scan.xml" value="0.22" />
+        <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_search.xml" value="0.33" />
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_search_null.xml" value="0.3359375" />
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_search_soso.xml" value="0.3359375" />
         <entry key="..\:/Users/DGSW/Documents/GitHub/EAT-IT-DOG-Android/EatItDogAndroid/app/src/main/res/layout/fragment_soso.xml" value="0.17864583333333334" />

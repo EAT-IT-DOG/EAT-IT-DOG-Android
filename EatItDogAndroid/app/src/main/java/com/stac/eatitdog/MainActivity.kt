@@ -106,16 +106,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
     fun Scanserver(barcodenum: Long) {
         val builder: Retrofit.Builder = Retrofit.Builder()
             .baseUrl("http://52.79.148.59:4000/")
@@ -145,7 +135,7 @@ class MainActivity : AppCompatActivity() {
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, danger.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_danger.newInstance()).commit()
-                            }, 3000)
+                            }, 1000)
                         }
                         "양호" -> {
                             foodinfo.foodname = repo.food.foodName
@@ -155,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, soso.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_soso.newInstance()).commit()
-                            }, 3000)
+                            }, 1000)
                         }
                         "안전" -> {
                             foodinfo.foodname = repo.food.foodName
@@ -165,7 +155,7 @@ class MainActivity : AppCompatActivity() {
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, safe.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_safe.newInstance()).commit()
-                            }, 3000)
+                            }, 1000)
                         }
                         else -> {
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_null.newInstance()).commit()
@@ -208,7 +198,7 @@ class MainActivity : AppCompatActivity() {
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, danger.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_danger.newInstance()).commit()
-                            }, 3000)
+                            }, 1000)
                         }
                         "양호" -> {
                             foodinfo.foodname = repo.food.foodName
@@ -218,7 +208,7 @@ class MainActivity : AppCompatActivity() {
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, soso.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_soso.newInstance()).commit()
-                            }, 3000)
+                            }, 1000)
                         }
                         "안전" -> {
                             foodinfo.foodname = repo.food.foodName
@@ -228,7 +218,7 @@ class MainActivity : AppCompatActivity() {
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, safe.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_safe.newInstance()).commit()
-                            }, 3000)
+                            }, 1000)
                         }
                         else -> {
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_null.newInstance()).commit()
