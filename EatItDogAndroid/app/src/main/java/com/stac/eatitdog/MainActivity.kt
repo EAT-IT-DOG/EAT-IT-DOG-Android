@@ -55,6 +55,12 @@ class MainActivity : AppCompatActivity() {
     val CAMERA_PERMISSION = arrayOf(Manifest.permission.CAMERA)
     val FLAG_PERM_CAMERA = 98
 
+    fun changestring(str : String): String {
+        var STR = str.replace("[","")
+        STR = STR.replace("]","")
+        return STR
+    }
+
     fun checkPermission() {
 
         // 1. 위험권한(Camera) 권한 승인상태 가져오기
@@ -131,7 +137,7 @@ class MainActivity : AppCompatActivity() {
                         "위험" -> {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
-                            foodinfo.symptom = repo.food.symptom.toString()
+                            foodinfo.symptom = changestring(repo.food.symptom.toString())
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, danger.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_danger.newInstance()).commit()
@@ -140,8 +146,8 @@ class MainActivity : AppCompatActivity() {
                         "양호" -> {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
-                            foodinfo.feed = repo.food.feedMethod.toString()
-                            foodinfo.symptom = repo.food.symptom.toString()
+                            foodinfo.feed = changestring(repo.food.feedMethod.toString())
+                            foodinfo.symptom = changestring(repo.food.symptom.toString())
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, soso.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_soso.newInstance()).commit()
@@ -150,8 +156,8 @@ class MainActivity : AppCompatActivity() {
                         "안전" -> {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
-                            foodinfo.feed = repo.food.feedMethod.toString()
-                            foodinfo.ingredient = repo.food.ingredient.toString()
+                            foodinfo.feed = changestring(repo.food.feedMethod.toString())
+                            foodinfo.ingredient = changestring(repo.food.ingredient.toString())
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, safe.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_safe.newInstance()).commit()
@@ -194,7 +200,7 @@ class MainActivity : AppCompatActivity() {
                         "위험" -> {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
-                            foodinfo.symptom = repo.food.symptom.toString()
+                            foodinfo.symptom = changestring(repo.food.symptom.toString())
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, danger.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_danger.newInstance()).commit()
@@ -203,8 +209,8 @@ class MainActivity : AppCompatActivity() {
                         "양호" -> {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
-                            foodinfo.feed = repo.food.feedMethod.toString()
-                            foodinfo.symptom = repo.food.symptom.toString()
+                            foodinfo.feed = changestring(repo.food.feedMethod.toString())
+                            foodinfo.symptom = changestring(repo.food.symptom.toString())
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, soso.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_soso.newInstance()).commit()
@@ -213,8 +219,8 @@ class MainActivity : AppCompatActivity() {
                         "안전" -> {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
-                            foodinfo.feed = repo.food.feedMethod.toString()
-                            foodinfo.ingredient = repo.food.ingredient.toString()
+                            foodinfo.feed = changestring(repo.food.feedMethod.toString())
+                            foodinfo.ingredient = changestring(repo.food.ingredient.toString())
                             supportFragmentManager.beginTransaction().replace(R.id.main_frame, safe.newInstance()).commit()
                             Handler().postDelayed({
                                 supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_safe.newInstance()).commit()
