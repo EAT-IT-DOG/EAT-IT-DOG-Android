@@ -160,6 +160,62 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/danger_symptom" />
 
+            <ImageView
+                android:id="@+id/danger_like_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/result_good"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/scdream4"
+                android:text="이 결과가 도움이 되셨나요?"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <ImageView
+                android:id="@+id/danger_unlike_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="100dp"
+                android:src="@drawable/result_bad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/danger_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/scdream4"
+                android:textColor="#000000"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="@+id/danger_like_btn"
+                app:layout_constraintStart_toStartOf="@+id/danger_like_btn"
+                app:layout_constraintTop_toBottomOf="@+id/danger_like_btn" />
+
+            <TextView
+                android:id="@+id/danger_unlike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:fontFamily="@font/scdream4"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="@+id/danger_unlike_btn"
+                app:layout_constraintStart_toStartOf="@+id/danger_unlike_btn"
+                app:layout_constraintTop_toBottomOf="@+id/danger_unlike_btn" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

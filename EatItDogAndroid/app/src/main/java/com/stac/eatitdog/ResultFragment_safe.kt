@@ -45,6 +45,17 @@ class ResultFragment_safe : Fragment() {
         binding.safeFeed.text = foodinfo.feed
         binding.safeIngredient.text = foodinfo.ingredient
 
+        binding.safeLike.text = "0"
+        binding.safeUnlike.text = "0"
+
+        binding.safeLikeBtn.setOnClickListener {
+            binding.safeLike.text = ((binding.safeLike.text.toString()).toInt()+1).toString()
+        }
+
+        binding.safeUnlikeBtn.setOnClickListener {
+            binding.safeUnlike.text = ((binding.safeUnlike.text.toString()).toInt()+1).toString()
+        }
+
         return binding.root
     }
 }

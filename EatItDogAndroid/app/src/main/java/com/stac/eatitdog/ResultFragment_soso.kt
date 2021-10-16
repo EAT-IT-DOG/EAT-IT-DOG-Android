@@ -45,6 +45,17 @@ class ResultFragment_soso : Fragment() {
         binding.sosoFeed.text = foodinfo.feed
         binding.sosoSymptom.text = foodinfo.symptom
 
+        binding.sosoLike.text = "0"
+        binding.sosoUnlike.text = "0"
+
+        binding.sosoLikeBtn.setOnClickListener {
+            binding.sosoLike.text = ((binding.sosoLike.text.toString()).toInt()+1).toString()
+        }
+
+        binding.sosoUnlikeBtn.setOnClickListener {
+            binding.sosoUnlike.text = ((binding.sosoUnlike.text.toString()).toInt()+1).toString()
+        }
+
         return binding.root
     }
 }

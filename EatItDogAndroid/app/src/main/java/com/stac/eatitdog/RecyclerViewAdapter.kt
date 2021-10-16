@@ -16,30 +16,35 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolde
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (position == 0) {
-            Glide.with(holder.itemView).load(R.drawable.green).into(holder.imageView)
-            holder.titleTextView.text = "초록동물병원"
-            holder.walkingTimeTextView.text = "이동 시간: 약 1분"
-            holder.contactTextView.text = "연락처: 053-638-1558"
-            holder.addressTextView.text = "대구광역시 달서구 진천동 595-26"
-        } else if (position == 1) {
-            Glide.with(holder.itemView).load(R.drawable.hospital2).into(holder.imageView)
-            holder.titleTextView.text = "어진종합동물병원"
-            holder.walkingTimeTextView.text = "이동 시간: 약 3분"
-            holder.contactTextView.text = "연락처: 053-638-8274"
-            holder.addressTextView.text = "대구광역시 달서구 상인동 255-2"
-        } else if (position == 2) {
-            Glide.with(holder.itemView).load(R.drawable.hospital3).into(holder.imageView)
-            holder.titleTextView.text = "해맑은동물병원"
-            holder.walkingTimeTextView.text = "이동 시간: 약 10분"
-            holder.contactTextView.text = "연락처: 053-638-8811"
-            holder.addressTextView.text = "대구광역시 달서구 진천동 508"
-        } else if (position == 3) {
-            Glide.with(holder.itemView).load(R.drawable.hospital4).into(holder.imageView)
-            holder.titleTextView.text = "비슬동물병원"
-            holder.walkingTimeTextView.text = "이동 시간: 약 7분"
-            holder.contactTextView.text = "연락처: 053-638-2480"
-            holder.addressTextView.text = "대구광역시 달서구 상인동 155-2"
+        when (position) {
+            0 -> {
+                Glide.with(holder.itemView).load(R.drawable.green).into(holder.imageView)
+                holder.titleTextView.text = "초록동물병원"
+                holder.walkingTimeTextView.text = "이동 시간: 약 1분"
+                holder.contactTextView.text = "연락처: 053-638-1558"
+                holder.addressTextView.text = "대구광역시 달서구 진천동 595-26"
+            }
+            1 -> {
+                Glide.with(holder.itemView).load(R.drawable.hospital2).into(holder.imageView)
+                holder.titleTextView.text = "어진종합동물병원"
+                holder.walkingTimeTextView.text = "이동 시간: 약 3분"
+                holder.contactTextView.text = "연락처: 053-638-8274"
+                holder.addressTextView.text = "대구광역시 달서구 상인동 255-2"
+            }
+            2 -> {
+                Glide.with(holder.itemView).load(R.drawable.hospital3).into(holder.imageView)
+                holder.titleTextView.text = "해맑은동물병원"
+                holder.walkingTimeTextView.text = "이동 시간: 약 10분"
+                holder.contactTextView.text = "연락처: 053-638-8811"
+                holder.addressTextView.text = "대구광역시 달서구 진천동 508"
+            }
+            3 -> {
+                Glide.with(holder.itemView).load(R.drawable.hospital4).into(holder.imageView)
+                holder.titleTextView.text = "비슬동물병원"
+                holder.walkingTimeTextView.text = "이동 시간: 약 7분"
+                holder.contactTextView.text = "연락처: 053-638-2480"
+                holder.addressTextView.text = "대구광역시 달서구 상인동 155-2"
+            }
         }
     }
 

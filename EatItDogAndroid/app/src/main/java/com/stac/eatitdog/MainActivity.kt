@@ -15,14 +15,11 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
-import com.journeyapps.barcodescanner.CaptureManager
-import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import com.stac.eatitdog.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_result_danger.*
@@ -52,12 +49,9 @@ class MainActivity : AppCompatActivity() {
     var latitude: Double? = null
     var longitude: Double? = null
 
-    val CAMERA_PERMISSION = arrayOf(Manifest.permission.CAMERA)
-    val FLAG_PERM_CAMERA = 98
-
     fun changestring(str : String): String {
-        var STR = str.replace("[","")
-        STR = STR.replace("]","")
+        var STR = str.replace("[", "")
+        STR = STR.replace("]", "")
         return STR
     }
 
@@ -77,7 +71,6 @@ class MainActivity : AppCompatActivity() {
     private fun requestPermission() {
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 99)
     }
-
 
     fun checkPermissionForLocation(context: Context): Boolean {
         Log.d(TAG, "checkPermissionForLocation()")
@@ -111,6 +104,31 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    /*fun resultishelpful(islike : String, foodId : String){
+        val builder: Retrofit.Builder = Retrofit.Builder()
+            .baseUrl("http://52.79.148.59:4000/")
+            .addConverterFactory(GsonConverterFactory.create())
+
+        val retrofit: Retrofit = builder.build()
+
+        val client: ScanService = retrofit.create(ScanService::class.java)
+
+        val call: Call<SearchData> = client.loadNotice(barcodenum.toString())
+
+        call.enqueue(object : Callback<SearchData> {
+            override fun onFailure(call: Call<SearchData>, t: Throwable) {
+                Log.e("debugTest", "error:(${t.message})")
+            }
+            override fun onResponse(
+                call: Call<SearchData>,
+                response: Response<SearchData>
+            ) {
+                val repo = response.body()
+
+            }
+        })
+    }*/
 
     fun Scanserver(barcodenum: Long) {
         val builder: Retrofit.Builder = Retrofit.Builder()
@@ -251,7 +269,10 @@ class MainActivity : AppCompatActivity() {
 
      private fun getCurrentLoc() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-        var userLocation : Location = getLatLng()
+        var userLocation : Location? = getLatLng()
+         if (userLocation == null) {
+             Toast.makeText(this, "현재 위치를 가져올 수 없습니다\n(보이는 곳은 기본으로 설정되어있는 위치입니다.)", Toast.LENGTH_LONG).show()
+         }
         if (userLocation != null) {
             latitude = userLocation.latitude
             longitude = userLocation.longitude
@@ -277,7 +298,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getLatLng() : Location {
+    private fun getLatLng() : Location? {
         var currentLatLng : Location? = null
         if (ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
@@ -288,7 +309,11 @@ class MainActivity : AppCompatActivity() {
             getLatLng()
         } else {
             val locationProvider = LocationManager.GPS_PROVIDER
+
             currentLatLng = locationManager?.getLastKnownLocation(locationProvider)
+            if (currentLatLng == null) {
+                return null
+            }
         }
         return currentLatLng!!
     }
@@ -311,7 +336,6 @@ class MainActivity : AppCompatActivity() {
 
         //레이아웃과 연결
         setContentView(binding.root)
-
 
         d1(TAG, "MainActivity - onCreate() called")
 
@@ -365,15 +389,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }*/
 
-
-    fun startBarcodeReader(view: View) {
-        val integrator = IntentIntegrator(this)
-        integrator.setPrompt("음식의 바코드에 카메라를 비춰달라멍")
-        integrator.setBeepEnabled(false)
-        integrator.setOrientationLocked(false)
-        integrator.initiateScan()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
@@ -386,7 +401,6 @@ class MainActivity : AppCompatActivity() {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
 
 }
 

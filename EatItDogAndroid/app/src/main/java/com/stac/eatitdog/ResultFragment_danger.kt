@@ -34,8 +34,19 @@ class ResultFragment_danger : Fragment() {
         binding.dangerFoodname.text = foodinfo.foodname
         binding.dangerEdible.text = foodinfo.edible
         binding.dangerSymptom.text = foodinfo.symptom
+        binding.dangerLike.text = "0"
+        binding.dangerUnlike.text = "0"
+
+        binding.dangerLikeBtn.setOnClickListener {
+            binding.dangerLike.text = ((binding.dangerLike.text.toString()).toInt()+1).toString()
+        }
+
+        binding.dangerUnlikeBtn.setOnClickListener {
+            binding.dangerUnlike.text = ((binding.dangerUnlike.text.toString()).toInt()+1).toString()
+        }
 
         return binding.root
+
     }
 
 }

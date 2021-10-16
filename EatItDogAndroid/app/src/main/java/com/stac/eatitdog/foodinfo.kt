@@ -6,4 +6,5 @@ object foodinfo {
     var symptom: String = "" //
     var feed: String = "" //
     var ingredient: String = "" //
+    var foodid: String = ""
 }

@@ -33,12 +33,19 @@ class MapsFragment : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         val makerOptions = MarkerOptions()
-        makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
-            .position(LatLng(MyLocation.latitude!!, MyLocation.longitude!!))
-            .title("TEST") // 타이틀.
+        if (MyLocation.latitude == 0.0 && MyLocation.longitude == 0.0) {
+            makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
+                .position(LatLng(MyLocation.latitude!!, MyLocation.longitude!!))
+                .title("기본 위치 값") // 타이틀.
+        }
+        else {
+            makerOptions // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
+                .position(LatLng(MyLocation.latitude!!, MyLocation.longitude!!))
+                .title("내 위치") // 타이틀.
+        }
 
         // 2. 마커 생성 (마커를 나타냄)
-        googleMap.addMarker(makerOptions)
+        googleMap.addMarker(makerOptions).showInfoWindow()
 
         val makerOptions1 = MarkerOptions()
         makerOptions1 // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
@@ -55,7 +62,7 @@ class MapsFragment : Fragment() {
             .title("동물병원 2") // 타이틀.
 
         // 2. 마커 생성 (마커를 나타냄)
-        googleMap.addMarker(makerOptions2)
+        googleMap.addMarker(makerOptions2).showInfoWindow()
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(MyLocation.latitude, MyLocation.longitude), 15.0F))
 //        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
