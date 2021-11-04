@@ -43,8 +43,6 @@ class MapsFragment : Fragment() {
                 .position(LatLng(MyLocation.latitude!!, MyLocation.longitude!!))
                 .title("내 위치") // 타이틀.
         }
-
-        // 2. 마커 생성 (마커를 나타냄)
         googleMap.addMarker(makerOptions).showInfoWindow()
 
         val makerOptions1 = MarkerOptions()
@@ -53,7 +51,6 @@ class MapsFragment : Fragment() {
             .title("초록 동물병원") // 타이틀.
             .snippet("053-638-1558")
 
-        // 2. 마커 생성 (마커를 나타냄)
         googleMap.addMarker(makerOptions1).showInfoWindow()
 
         val makerOptions2 = MarkerOptions()
@@ -61,7 +58,6 @@ class MapsFragment : Fragment() {
             .position(LatLng(35.65618989500108, 128.4188453166363))
             .title("동물병원 2") // 타이틀.
 
-        // 2. 마커 생성 (마커를 나타냄)
         googleMap.addMarker(makerOptions2).showInfoWindow()
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(MyLocation.latitude, MyLocation.longitude), 15.0F))

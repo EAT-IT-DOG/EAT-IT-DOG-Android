@@ -45,11 +45,18 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolde
                 holder.contactTextView.text = "연락처: 053-638-2480"
                 holder.addressTextView.text = "대구광역시 달서구 상인동 155-2"
             }
+            4 -> {
+                Glide.with(holder.itemView).load(R.drawable.hospital4).into(holder.imageView)
+                holder.titleTextView.text = "니얼굴동물병원"
+                holder.walkingTimeTextView.text = "이동 시간: 약 999분"
+                holder.contactTextView.text = "연락처: 053-638-2480"
+                holder.addressTextView.text = "대구광역시 달서구 상인동 141-2"
+            }
         }
     }
 
     override fun getItemCount(): Int {
-        return 4
+        return 5
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
