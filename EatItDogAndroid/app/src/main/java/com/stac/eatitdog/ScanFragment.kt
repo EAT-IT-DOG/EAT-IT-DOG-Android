@@ -73,8 +73,6 @@ class ScanFragment : Fragment(), ZXingScannerView.ResultHandler {
     }
 
     override fun handleResult(rawResult: Result?) {
-        var barcodenum = rawResult?.text
-        (activity as MainActivity).Scanserver(barcodenum!!.toLong())
-        //Toast.makeText(context, rawResult?.text, Toast.LENGTH_LONG).show()
+
     }
 }

@@ -49,28 +49,13 @@ class MainActivity : AppCompatActivity() {
     var latitude: Double? = null
     var longitude: Double? = null
 
-    fun changestring(str : String): String {
+    fun changestring(str: String): String {
         var STR = str.replace("[", "")
         STR = STR.replace("]", "")
         return STR
     }
 
-    fun checkPermission() {
 
-        // 1. 위험권한(Camera) 권한 승인상태 가져오기
-        val cameraPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
-        if (cameraPermission == PackageManager.PERMISSION_GRANTED) {
-            // 카메라 권한이 승인된 상태일 경우
-        } else {
-            // 카메라 권한이 승인되지 않았을 경우
-            requestPermission()
-        }
-    }
-
-    // 2. 권한 요청
-    private fun requestPermission() {
-        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 99)
-    }
 
     fun checkPermissionForLocation(context: Context): Boolean {
         Log.d(TAG, "checkPermissionForLocation()")
@@ -82,7 +67,9 @@ class MainActivity : AppCompatActivity() {
             } else {
                 // 권한이 없으므로 권한 요청 알림 보내기
                 Log.d(TAG, "checkPermissionForLocation() 권한 상태 : X")
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_PERMISSION_LOCATION)
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                    REQUEST_PERMISSION_LOCATION)
                 false
             }
         } else {
@@ -91,7 +78,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 사용자에게 권한 요청 후 결과에 대한 처리 로직
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         Log.d(TAG, "onRequestPermissionsResult()")
         if (requestCode == REQUEST_PERMISSION_LOCATION) {
@@ -100,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
             } else {
                 Log.d(TAG, "onRequestPermissionsResult() _ 권한 허용 거부")
-                Toast.makeText(this , "권한이 없어 GPS 기능을 실행할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "권한이 없어 GPS 기능을 실행할 수 없습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -130,70 +121,8 @@ class MainActivity : AppCompatActivity() {
         })
     }*/
 
-    fun Scanserver(barcodenum: Long) {
-        val builder: Retrofit.Builder = Retrofit.Builder()
-            .baseUrl("http://52.79.148.59:4000/")
-            .addConverterFactory(GsonConverterFactory.create())
 
-        val retrofit: Retrofit = builder.build()
-
-        val client: ScanService = retrofit.create(ScanService::class.java)
-
-        val call: Call<SearchData> = client.loadNotice(barcodenum.toString())
-
-        call.enqueue(object : Callback<SearchData> {
-            override fun onFailure(call: Call<SearchData>, t: Throwable) {
-                Log.e("debugTest", "error:(${t.message})")
-            }
-            override fun onResponse(
-                call: Call<SearchData>,
-                response: Response<SearchData>
-            ) {
-                val repo = response.body()
-                if (repo != null) {
-                    when (repo.food.safetyGrade) {
-                        "위험" -> {
-                            foodinfo.foodname = repo.food.foodName
-                            foodinfo.edible = repo.food.edible
-                            foodinfo.symptom = changestring(repo.food.symptom.toString())
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, danger.newInstance()).commit()
-                            Handler().postDelayed({
-                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_danger.newInstance()).commit()
-                            }, 1000)
-                        }
-                        "양호" -> {
-                            foodinfo.foodname = repo.food.foodName
-                            foodinfo.edible = repo.food.edible
-                            foodinfo.feed = changestring(repo.food.feedMethod.toString())
-                            foodinfo.symptom = changestring(repo.food.symptom.toString())
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, soso.newInstance()).commit()
-                            Handler().postDelayed({
-                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_soso.newInstance()).commit()
-                            }, 1000)
-                        }
-                        "안전" -> {
-                            foodinfo.foodname = repo.food.foodName
-                            foodinfo.edible = repo.food.edible
-                            foodinfo.feed = changestring(repo.food.feedMethod.toString())
-                            foodinfo.ingredient = changestring(repo.food.ingredient.toString())
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, safe.newInstance()).commit()
-                            Handler().postDelayed({
-                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_safe.newInstance()).commit()
-                            }, 1000)
-                        }
-                        else -> {
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_null.newInstance()).commit()
-                        }
-                    }
-                }
-                else {
-                    supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_null.newInstance()).commit()
-                }
-            }
-        })
-    }
-
-    fun Searchserver(foodname : String) {
+    fun Searchserver(foodname: String) {
         val builder: Retrofit.Builder = Retrofit.Builder()
             .baseUrl("http://52.79.148.59:4000/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -208,9 +137,10 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<SearchData>, t: Throwable) {
                 Log.e("debugTest", "error:(${t.message})")
             }
+
             override fun onResponse(
                 call: Call<SearchData>,
-                response: Response<SearchData>
+                response: Response<SearchData>,
             ) {
                 val repo = response.body()
                 if (repo != null) {
@@ -219,9 +149,12 @@ class MainActivity : AppCompatActivity() {
                             foodinfo.foodname = repo.food.foodName
                             foodinfo.edible = repo.food.edible
                             foodinfo.symptom = changestring(repo.food.symptom.toString())
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, danger.newInstance()).commit()
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.main_frame, danger.newInstance()).commit()
                             Handler().postDelayed({
-                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_danger.newInstance()).commit()
+                                supportFragmentManager.beginTransaction()
+                                    .replace(R.id.main_frame, ResultFragment_danger.newInstance())
+                                    .commit()
                             }, 1000)
                         }
                         "양호" -> {
@@ -229,9 +162,12 @@ class MainActivity : AppCompatActivity() {
                             foodinfo.edible = repo.food.edible
                             foodinfo.feed = changestring(repo.food.feedMethod.toString())
                             foodinfo.symptom = changestring(repo.food.symptom.toString())
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, soso.newInstance()).commit()
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.main_frame, soso.newInstance()).commit()
                             Handler().postDelayed({
-                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_soso.newInstance()).commit()
+                                supportFragmentManager.beginTransaction()
+                                    .replace(R.id.main_frame, ResultFragment_soso.newInstance())
+                                    .commit()
                             }, 1000)
                         }
                         "안전" -> {
@@ -239,40 +175,46 @@ class MainActivity : AppCompatActivity() {
                             foodinfo.edible = repo.food.edible
                             foodinfo.feed = changestring(repo.food.feedMethod.toString())
                             foodinfo.ingredient = changestring(repo.food.ingredient.toString())
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, safe.newInstance()).commit()
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.main_frame, safe.newInstance()).commit()
                             Handler().postDelayed({
-                                supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_safe.newInstance()).commit()
+                                supportFragmentManager.beginTransaction()
+                                    .replace(R.id.main_frame, ResultFragment_safe.newInstance())
+                                    .commit()
                             }, 1000)
                         }
                         else -> {
-                            supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_null.newInstance()).commit()
+                            supportFragmentManager.beginTransaction()
+                                .replace(R.id.main_frame, ResultFragment_null.newInstance())
+                                .commit()
                         }
                     }
-                }
-                else {
-                    supportFragmentManager.beginTransaction().replace(R.id.main_frame, ResultFragment_null.newInstance()).commit()
+                } else {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frame, ResultFragment_null.newInstance()).commit()
                 }
             }
         })
     }
 
-    fun CloseKeyboard()
-    {
+    fun CloseKeyboard() {
         var view = this.currentFocus
 
-        if (view != null)
-        {
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (view != null) {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
-     private fun getCurrentLoc() {
+    private fun getCurrentLoc() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
-        var userLocation : Location? = getLatLng()
-         if (userLocation == null) {
-             Toast.makeText(this, "현재 위치를 가져올 수 없습니다\n(보이는 곳은 기본으로 설정되어있는 위치입니다.)", Toast.LENGTH_LONG).show()
-         }
+        var userLocation: Location? = getLatLng()
+        if (userLocation == null) {
+            Toast.makeText(this,
+                "현재 위치를 가져올 수 없습니다\n(보이는 곳은 기본으로 설정되어있는 위치입니다.)",
+                Toast.LENGTH_LONG).show()
+        }
         if (userLocation != null) {
             latitude = userLocation.latitude
             longitude = userLocation.longitude
@@ -282,7 +224,7 @@ class MainActivity : AppCompatActivity() {
             MyLocation.longitude = longitude!!
 
             var mGeocoder = Geocoder(applicationContext, Locale.KOREAN)
-            var mResultList : List<Address>? = null
+            var mResultList: List<Address>? = null
             try {
                 mResultList = mGeocoder.getFromLocation(
                     latitude!!, longitude!!, 1
@@ -298,9 +240,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getLatLng() : Location? {
-        var currentLatLng : Location? = null
-        if (ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    private fun getLatLng(): Location? {
+        var currentLatLng: Location? = null
+        if (ActivityCompat.checkSelfPermission(applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -328,8 +274,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        checkPermission()
-
         checkPermissionForLocation(this)
 
         mBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -353,54 +297,26 @@ class MainActivity : AppCompatActivity() {
                 R.id.item_scan -> {
                     d1(TAG, "MainActivity - 스캔버튼!")
                     scanFragment = ScanFragment.newInstance()
-                    supportFragmentManager.beginTransaction().replace(R.id.main_frame, scanFragment).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.main_frame, scanFragment)
+                        .commit()
                 }
                 R.id.item_serch -> {
                     d1(TAG, "MainActivity - 검색버튼!")
                     searchFragment = SearchFragment.newInstance()
-                    supportFragmentManager.beginTransaction().replace(R.id.main_frame, searchFragment).commit()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.main_frame, searchFragment).commit()
                 }
                 R.id.item_hospital -> {
                     d1(TAG, "MainActivity - 병원버튼!")
                     mapsFragment = MapsFragment.newInstance()
-                    supportFragmentManager.beginTransaction().replace(R.id.main_frame, mapsFragment).commit()
+                    supportFragmentManager.beginTransaction().replace(R.id.main_frame, mapsFragment)
+                        .commit()
                     getCurrentLoc()
                 }
             }
 
             true
         }
-
-    /*override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        Log.d(TAG, "MainActivity - onNavigationItemSelected() called")
-
-        when(item.itemId){
-            R.id.item_scan ->{
-                Log.d(TAG, "MainActivity - 스캔버튼!")
-            }
-            R.id.item_serch ->{
-                Log.d(TAG, "MainActivity - 검색버튼!")
-            }
-            R.id.item_hospital ->{
-                Log.d(TAG, "MainActivity - 병원버튼!")
-            }
-        }
-
-        return true
-    }*/
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null) {
-            if (result.contents != null) {
-                Scanserver(result.contents.toLong())
-            } else {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
 
 }
 
